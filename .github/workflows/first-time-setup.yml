@@ -1,11 +1,11 @@
 name: first-time-setup
-run-name: first time setup of repo
+run-name: Setup
 
 on:
-  # run when branch created (repo generated from template)
+  # Run when repo is generated from template
   create:
 
-# only keep latest run of this workflow
+# Only keep latest run of this workflow
 concurrency:
   group: first-time-setup
   cancel-in-progress: true
@@ -18,36 +18,35 @@ permissions:
 
 jobs:
   first-time-setup:
-    # ensure run only once, when repo generated
+    # Ensure run only once, when repo generated
     if: github.run_number == 1
 
     runs-on: ubuntu-latest
 
     steps:
-      # get main branch repo contents
+      - name: Print
+        run: env | sort
+
       - name: Checkout code
         uses: actions/checkout@v3
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
-      # remove files not needed for user instance of template
-      - name: Remove unneeded files
-        run: rm -f README.md
+      - name: Remove unnecessary files
+        run: rm -f .github/workflows/first-time-setup.yml
 
-      # personalize readme for user
-      - name: Init readme
+      - name: Update config and README
         run: |
-          echo "
+          sed -i "s|OpenTermsArchive|${{ github.repository_owner }}|g" config/production.json &&
+          sed -i "s|demo-declarations|${{ github.event.repository.name }}|g" config/production.json &&
+          sed -i "s|demo-snapshots|${{ github.event.repository.name }}-snapshots|g" config/production.json &&
+          sed -i "s|demo-versions|${{ github.event.repository.name }}-versions|g" config/production.json &&
+          sed -i "s|demo|${{ github.event.repository.name }}|g" README.md
 
-          Personalized readme text. Hello ${{ github.repository_owner }}!
-
-          " > README.md
-
-      # save changed files
       - name: Commit changed files
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: "Setup repo"
+          commit_message: "Cleanup after generating repository from template"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
