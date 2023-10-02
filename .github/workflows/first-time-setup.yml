@@ -30,7 +30,7 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Remove unnecessary files
-        run: rm -f .github/workflows/first-time-setup.yml
+        run: rm -f .github/workflows/first-time-setup.yml declarations/*
 
       - name: Update config and README
         run: |
