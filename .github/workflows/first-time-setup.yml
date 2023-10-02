@@ -29,15 +29,25 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Remove unnecessary files
-        run: rm -f .github/workflows/first-time-setup.yml declarations/*
+      - name: Remove first time setup workflow
+        run: rm -f .github/workflows/first-time-setup.yml
 
-      - name: Update config and README
+      - name: Remove declarations
+        run: rm -f declarations/*
+
+      - name: Update dependabot
+        run: |
+          sed -i "s|"OpenTermsArchive/demo"|"${{ github.repository_owner }}/${{ github.event.repository.name }}"|g" .github/dependabot.yml
+
+      - name: Update config
         run: |
           sed -i "s|OpenTermsArchive|${{ github.repository_owner }}|g" config/production.json &&
           sed -i "s|demo-declarations|${{ github.event.repository.name }}|g" config/production.json &&
           sed -i "s|demo-snapshots|${{ github.event.repository.name }}-snapshots|g" config/production.json &&
-          sed -i "s|demo-versions|${{ github.event.repository.name }}-versions|g" config/production.json &&
+          sed -i "s|demo-versions|${{ github.event.repository.name }}-versions|g" config/production.json
+
+      - name: Update README
+        run: |
           sed -i "s|# Open Terms Archive - Demo|# Open Terms Archive - ${{ github.event.repository.name }}|g" README.md &&
           sed -i "s|https://github.com/OpenTermsArchive/demo-versions|https://github.com/${{ github.repository_owner }}/${{ github.event.repository.name }}-versions|g" README.md &&
           sed -i "s|\`OpenTermsArchive/demo-versions\`|\`${{ github.repository_owner }}/${{ github.event.repository.name }}\`|g" README.md &&
@@ -45,8 +55,8 @@ jobs:
           sed -i "s|<!-- customize the maintainers to your context -->.*<!-- until here -->|_____________________|g" README.md &&
           sed -i "s|<!-- customize jurisdictions to your context -->.*<!-- until here -->|_______________|g" README.md &&
           sed -i "s|<!-- customize languages to your context -->.*<!-- until here -->|___________|g" README.md
-
-      - name: Commit changed files
+    
+      - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "Cleanup after generating repository from template"
