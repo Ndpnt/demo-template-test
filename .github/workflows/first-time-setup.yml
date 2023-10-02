@@ -39,10 +39,10 @@ jobs:
           sed -i "s|demo-snapshots|${{ github.event.repository.name }}-snapshots|g" config/production.json &&
           sed -i "s|demo-versions|${{ github.event.repository.name }}-versions|g" config/production.json &&
           sed -i "s|# Open Terms Archive - Demo|# Open Terms Archive - ${{ github.event.repository.name }}|g" README.md &&
-          sed -i "s|<!-- customize this description to your context -->.*<!-- until here -->|___________________________________|g" README.md &&
-          sed -i "s|<!-- customize the maintainers to your context -->.*<!-- until here -->|_______________|g" README.md &&
-          sed -i "s|<!-- customize the jurisdictions to your context -->.*<!-- until here -->|_______________|g" README.md &&
-          sed -i "s|<!-- customize the Languages to your context -->.*<!-- until here -->|_______________|g" README.md
+          sed -i "s|<!-- customize this description to your context -->.*<!-- until here -->|________________________________________|g" README.md &&
+          sed -i "s|<!-- customize the maintainers to your context -->.*<!-- until here -->|_____________________|g" README.md &&
+          sed -i "s|<!-- customize jurisdictions to your context -->.*<!-- until here -->|_______________|g" README.md &&
+          sed -i "s|<!-- customize languages to your context -->.*<!-- until here -->|___________|g" README.md
 
       - name: Commit changed files
         uses: stefanzweifel/git-auto-commit-action@v4
