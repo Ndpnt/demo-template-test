@@ -1,4 +1,4 @@
-# Open Terms Archive - Demo collection definition
+# Open Terms Archive - demo collection definition
 
 - **Description:** <!-- customize this description to your context -->The services needed to operate the Open Terms Archive engine<!-- until here -->
 - **Maintainers:** <!-- customize the maintainers to your context -->[Open Terms Archive](https://opentermsarchive.org)<!-- until here -->
