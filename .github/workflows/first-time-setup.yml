@@ -24,9 +24,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Print
-        run: env | sort
-
       - name: Checkout code
         uses: actions/checkout@v3
         with:
@@ -41,7 +38,11 @@ jobs:
           sed -i "s|demo-declarations|${{ github.event.repository.name }}|g" config/production.json &&
           sed -i "s|demo-snapshots|${{ github.event.repository.name }}-snapshots|g" config/production.json &&
           sed -i "s|demo-versions|${{ github.event.repository.name }}-versions|g" config/production.json &&
-          sed -i "s|demo|${{ github.event.repository.name }}|g" README.md
+          sed -i "s|# Open Terms Archive - Demo|# Open Terms Archive - ${{ github.event.repository.name }}|g" README.md &&
+          sed -i "s|<!-- customize this description to your context -->.*<!-- until here -->|___________________________________|g" README.md &&
+          sed -i "s|<!-- customize the maintainers to your context -->.*<!-- until here -->|_______________|g" README.md &&
+          sed -i "s|<!-- customize the jurisdictions to your context -->.*<!-- until here -->|_______________|g" README.md &&
+          sed -i "s|<!-- customize the Languages to your context -->.*<!-- until here -->|_______________|g" README.md
 
       - name: Commit changed files
         uses: stefanzweifel/git-auto-commit-action@v4
