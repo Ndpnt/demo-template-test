@@ -47,7 +47,7 @@ jobs:
 
       - name: Update config
         run: |
-          COLLECTION_NAME="${${{ github.event.repository.name }}//-declarations}"
+          COLLECTION_NAME=echo '${{ github.event.repository.name }}' | sed 's/-declarations//'
           sed -i "s|\"name\": \"demo\"|\"name\": \"$COLLECTION_NAME\"|g" config/production.json &&
           sed -i "s|demo-declarations|${{ github.event.repository.name }}|g" config/production.json &&
           sed -i "s|demo-snapshots|${{ github.event.repository.name }}-snapshots|g" config/production.json &&
@@ -56,7 +56,7 @@ jobs:
 
       - name: Update README
         run: |
-          COLLECTION_NAME="${${{ github.event.repository.name }}//-declarations}"
+          COLLECTION_NAME=echo '${{ github.event.repository.name }}' | sed 's/-declarations//'
           sed -i "s|# Demo collection|# $COLLECTION_NAME collection|g" README.md &&
           sed -i "s|https://github.com/OpenTermsArchive/demo-versions|https://github.com/${{ github.repository_owner }}/${{ github.event.repository.name }}-versions|g" README.md &&
           sed -i "s|\`OpenTermsArchive/demo-versions\`|\`${{ github.repository_owner }}/${{ github.event.repository.name }}\`|g" README.md &&
