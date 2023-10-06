@@ -47,7 +47,7 @@ jobs:
 
       - name: Update deployment inventory
         run: |
-          sed -i -z -e "s|hosts:\n\([[:blank:]]*\).*:\n|hosts:\n\$1PLACEHOLDER:\n|g" deployment/inventory.yml &&
+          sed -i -z -e "s|hosts:\n\([[:blank:]]*\).*:\n|hosts:\n\$1$PLACEHOLDER:\n|g" deployment/inventory.yml &&
           sed -i "s|ansible_user: .*|ansible_user: $PLACEHOLDER|g" deployment/inventory.yml &&
           sed -i "s|ed25519_fingerprint: .*|ed25519_fingerprint: $PLACEHOLDER|g" deployment/inventory.yml
 
