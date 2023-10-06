@@ -59,7 +59,7 @@ jobs:
       - name: Update README
         run: |
           sed -i "s|<!-- here goes your collection name -->.*<!-- until here -->|$COLLECTION_NAME|g" README.md &&
-          sed -i "s|\`OpenTermsArchive/demo-versions\`|\`$REPOSITORY_OWNER/$COLLECTION_NAME-versions\`|g" README.md &&
+          sed -i "s|OpenTermsArchive/demo-versions|$REPOSITORY_OWNER/$COLLECTION_NAME-versions|g" README.md &&
           sed -i "s|<!-- customize to your context -->.*<!-- until here -->|$PLACEHOLDER|g" README.md
     
       - name: Commit changes
