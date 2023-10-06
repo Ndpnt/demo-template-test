@@ -47,21 +47,23 @@ jobs:
 
       - name: Update config
         run: |
+          REPOSITORY_OWNER=${{ github.repository_owner }}
           REPOSITORY_NAME=${{ github.event.repository.name }}
           COLLECTION_NAME="${REPOSITORY_NAME//-declarations}"
           sed -i "s|\"name\": \"demo\"|\"name\": \"$COLLECTION_NAME\"|g" config/production.json &&
-          sed -i "s|demo-declarations|${{ github.event.repository.name }}|g" config/production.json &&
-          sed -i "s|demo-snapshots|${{ github.event.repository.name }}-snapshots|g" config/production.json &&
-          sed -i "s|demo-versions|${{ github.event.repository.name }}-versions|g" config/production.json &&
-          sed -i "s|OpenTermsArchive|${{ github.repository_owner }}|g" config/production.json
+          sed -i "s|demo-declarations|${REPOSITORY_NAME}|g" config/production.json &&
+          sed -i "s|demo-snapshots|${COLLECTION_NAME}-snapshots|g" config/production.json &&
+          sed -i "s|demo-versions|${COLLECTION_NAME}-versions|g" config/production.json &&
+          sed -i "s|OpenTermsArchive|${REPOSITORY_OWNER}|g" config/production.json
 
       - name: Update README
         run: |
+          REPOSITORY_OWNER=${{ github.repository_owner }}
           REPOSITORY_NAME=${{ github.event.repository.name }}
           COLLECTION_NAME="${REPOSITORY_NAME//-declarations}"
           sed -i "s|# Demo collection|# $COLLECTION_NAME collection|g" README.md &&
-          sed -i "s|https://github.com/OpenTermsArchive/demo-versions|https://github.com/${{ github.repository_owner }}/${{ github.event.repository.name }}-versions|g" README.md &&
-          sed -i "s|\`OpenTermsArchive/demo-versions\`|\`${{ github.repository_owner }}/${{ github.event.repository.name }}\`|g" README.md &&
+          sed -i "s|https://github.com/OpenTermsArchive/demo-versions|https://github.com/${REPOSITORY_OWNER}/${COLLECTION_NAME}-versions|g" README.md &&
+          sed -i "s|\`OpenTermsArchive/demo-versions\`|\`${REPOSITORY_OWNER}/${COLLECTION_NAME}-versions\`|g" README.md &&
           sed -i "s|<!-- customize to your context -->.*<!-- until here -->|_ _ _ _ _ ✍️|g" README.md
     
       - name: Commit changes
