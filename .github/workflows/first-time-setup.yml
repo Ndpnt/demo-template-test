@@ -22,15 +22,18 @@ jobs:
     if: github.run_number == 1
 
     runs-on: ubuntu-latest
-    env:
-      REPOSITORY_OWNER: ${{ github.repository_owner }}
-      REPOSITORY_NAME: ${{ github.event.repository.name }}
-      COLLECTION_NAME: "${REPOSITORY_NAME//-declarations}"
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set environments variables
+        run: |
+          echo "REPOSITORY_OWNER=${{ github.repository_owner }}" >> $GITHUB_ENV &&
+          echo "REPOSITORY_NAME=${{ github.event.repository.name }}" >> $GITHUB_ENV &&
+          echo "COLLECTION_NAME=${REPOSITORY_NAME//-declarations}" >> $GITHUB_ENV
+      
 
       - name: Remove first time setup workflow
         run: rm -f .github/workflows/first-time-setup.yml
