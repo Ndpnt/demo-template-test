@@ -32,7 +32,7 @@ jobs:
         run: |
           echo "REPOSITORY_OWNER=${{ github.repository_owner }}" >> $GITHUB_ENV &&
           echo "REPOSITORY_NAME=${{ github.event.repository.name }}" >> $GITHUB_ENV &&
-          echo "COLLECTION_NAME=${${{ github.event.repository.name }}//-declarations}" >> $GITHUB_ENV
+          echo "COLLECTION_NAME=$(echo ${{ github.event.repository.name }} | sed 's/-declarations//')" >> $GITHUB_ENV
       
 
       - name: Remove first time setup workflow
