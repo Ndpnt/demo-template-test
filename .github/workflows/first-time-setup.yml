@@ -32,7 +32,7 @@ jobs:
         run: |
           echo "REPOSITORY_OWNER=${{ github.repository_owner }}" >> $GITHUB_ENV &&
           echo "REPOSITORY_NAME=${{ github.event.repository.name }}" >> $GITHUB_ENV &&
-          echo "COLLECTION_NAME=${REPOSITORY_NAME//-declarations}" >> $GITHUB_ENV
+          echo "COLLECTION_NAME=${echo $REPOSITORY_NAME | sed 's/--declarations//'}" >> $GITHUB_ENV
       
 
       - name: Remove first time setup workflow
@@ -61,7 +61,7 @@ jobs:
 
       - name: Update README
         run: |
-          sed -i "s|# Demo collection|# $COLLECTION_NAME collection|g" README.md &&
+          sed -i "s|<!-- here goes your collection name -->.*<!-- until here -->|$COLLECTION_NAME|g" README.md &&
           sed -i "s|https://github.com/OpenTermsArchive/demo-versions|https://github.com/$REPOSITORY_OWNER/$COLLECTION_NAME-versions|g" README.md &&
           sed -i "s|\`OpenTermsArchive/demo-versions\`|\`$REPOSITORY_OWNER/$COLLECTION_NAME-versions\`|g" README.md &&
           sed -i "s|<!-- customize to your context -->.*<!-- until here -->|_ _ _ _ _ ✍️|g" README.md
