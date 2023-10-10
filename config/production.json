@@ -1,15 +1,15 @@
 {
-  "name": "demo",
+  "name": "demo-template-test",
   "services": {
-    "repository": "https://github.com/OpenTermsArchive/demo-declarations.git",
+    "repository": "https://github.com/Ndpnt/demo-template-test-declarations.git",
     "declarationsPath": "./declarations"
   },
   "recorder": {
     "versions": {
       "storage": {
         "git": {
-          "snapshotIdentiferTemplate": "https://github.com/OpenTermsArchive/demo-snapshots/commit/%SNAPSHOT_ID",
-          "repository": "git@github.com:OpenTermsArchive/demo-versions.git",
+          "snapshotIdentiferTemplate": "https://github.com/Ndpnt/demo-template-test-snapshots/commit/%SNAPSHOT_ID",
+          "repository": "git@github.com:Ndpnt/demo-template-test-versions.git",
           "path": "./data/versions"
         }
       }
@@ -17,7 +17,7 @@
     "snapshots": {
       "storage": {
         "git": {
-          "repository": "git@github.com:OpenTermsArchive/demo-snapshots.git",
+          "repository": "git@github.com:Ndpnt/demo-template-test-snapshots.git",
           "path": "./data/snapshots"
         }
       }
@@ -34,11 +34,11 @@
   },
   "tracker": {
     "githubIssues": {
-      "repository": "OpenTermsArchive/demo-declarations"
+      "repository": "Ndpnt/demo-template-test-declarations"
     }
   },
   "dataset": {
-    "title": "demo",
-    "versionsRepositoryURL": "https://github.com/OpenTermsArchive/demo-versions"
+    "title": "demo-template-test",
+    "versionsRepositoryURL": "https://github.com/Ndpnt/demo-template-test-versions"
   }
 }
